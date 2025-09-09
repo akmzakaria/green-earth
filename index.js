@@ -1,42 +1,35 @@
-// const loadAllPlants = () => {
-//     fetch('https://openapi.programming-hero.com/api/plants')
-//         .then(res => res.json())
-//         .then(json => console.log(json))
-// }
-
-
-
+const removeActive = () => {
+    const lessonBtns = document.querySelectorAll('.catagory-btn');
+    lessonBtns.forEach(btn => btn.classList.remove('active'));
+}
 
 
 const loadCataTree1 = () => {
-    // console.log(id)
+
     const url = `https://openapi.programming-hero.com/api/plants`
-    // console.log(url)
+
     fetch(url)
         .then(res => res.json())
-        .then(data => displayCataTree1(data.plants))
+        .then(data => {
+
+            removeActive();
+
+            const clickBtn = document.getElementById(`catagory-btn`);
+            clickBtn.classList.add('active');
+
+            displayCataTree(data.plants)
+
+
+            displayCataTree1(data.plants)
+        })
 
 }
 
 const displayCataTree1 = (plants) => {
-    // console.log(plants)
     const treeContainer1 = document.getElementById('tree-container');
     treeContainer1.innerHTML = '';
 
-
-
-    //     {
-    //     "id": 1,
-    //     "image": "https://i.ibb.co.com/cSQdg7tf/mango-min.jpg",
-    //     "name": "Mango Tree",
-    //     "description": "A fast-growing tropical tree that produces delicious, juicy mangoes during summer. Its dense green canopy offers shade, while its sweet fruits are rich in vitamins and minerals.",
-    //     "category": "Fruit Tree",
-    //     "price": 500
-    // }
-
-
     plants.forEach(plant => {
-        // console.log(plant)
         const card = document.createElement('div');
         card.innerHTML = `
         
@@ -69,14 +62,22 @@ const displayCataTree1 = (plants) => {
 // --------------------------------------------------------------
 
 
+
+
 const loadCataTree = (id) => {
-    // console.log(id)
     const url = `https://openapi.programming-hero.com/api/category/${id}`
-    // console.log(url)
+
     fetch(url)
         .then(res => res.json())
-        .then(data => displayCataTree(data.plants))
+        .then(data => {
 
+            removeActive();
+
+            const clickBtn = document.getElementById(`catagory-btn-${id}`);
+            clickBtn.classList.add('active');
+
+            displayCataTree(data.plants)
+        })
 }
 
 
@@ -135,20 +136,20 @@ const loadCatagories = () => {
 }
 
 const displayCatagories = (catagories) => {
-    // console.log(catagories)
 
+    // 1. get the container & empty
     const cataContainer = document.getElementById('cata-container');
     cataContainer.innerHTML = '';
 
     // 2. get into each catagories
 
     for (let catagory of catagories) {
+
         // 3. create element
-        // console.log(catagories)
         const btnDiv = document.createElement('div');
         btnDiv.innerHTML = `
 
-        <button id="" onclick = "loadCataTree(${catagory.id})" class="btn catagory-btn hover:bg-[#15803d] w-50 bg-[#f0fdf4]">
+        <button id="catagory-btn-${catagory.id}" onclick = "loadCataTree(${catagory.id})" class="btn catagory-btn hover:bg-[#15803d] w-50 bg-[#f0fdf4] hover:text-white">
 
         ${catagory.category_name}
 
@@ -156,7 +157,6 @@ const displayCatagories = (catagories) => {
         `
 
         // 4. append into container
-
         cataContainer.append(btnDiv);
     }
 
@@ -164,14 +164,6 @@ const displayCatagories = (catagories) => {
 
 
 loadCatagories();
-
-
-displayAllPlants = (plants) => {
-    const allPlants = document.getElementById('cata-btn');
-    allPlants.innerHTML = '';
-
-}
-
 
 
 
