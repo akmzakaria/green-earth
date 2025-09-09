@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Earth</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+        integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <header>
+
+        <div class="navbar bg-base-100 bg-[#15803d] shadow-sm">
+            <div class="navbar-start">
+                <div class="dropdown">
+                    <div tabindex="0" role="button" class="btn btn-ghost md:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h8m-8 6h16" />
+                        </svg>
+                    </div>
+                    <ul tabindex="0"
+                        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow space-y-2">
+                        <li><a href="">About</a></li>
+                        <li><a href="">Gallery</a></li>
+                        <li><a href="">Plant a Tree</a></li>
+                </div>
+                <a class="flex items-center gap-1 text-lg font-bold poppins text-white">
+                    Green Earth
+                </a>
+            </div>
+            <div class="navbar-center hidden md:flex">
+                <ul class="menu menu-horizontal px-1 space-x-4 ">
+                    <li><a href="" class=" btn-outline text-white ">About</a></li>
+                    <li><a href="" class=" btn-outline btn-primary text-white">Gallery</a>
+                    </li>
+                    <li><a href="" class=" btn-outline  text-white">Plant a Tree</a></li>
+                </ul>
+            </div>
+
+            <div class="navbar-end">
+                <button class="text-[#15803d] bg-[#facc15] rounded-full   inter font-medium btn shadow-none">Plant
+                    a Tree</button>
+
+            </div>
+        </div>
+
+        <section class="flex justify-around bg-[#cff0dc] items-end">
+            <img class="size-1/5" src="./assets/hero-leaf1.png" alt="">
+
+            <div class="flex flex-col justify-center items-center gap-2 p-3">
+                <h1 class="text-center font-bold inter text-[2rem]">Plant a Tree, Grow a Future</h1>
+                <p class="text-center text-[#1F2937] inter">Join our mission to plant 1 million trees and make the Earth
+                    greener for future
+                    generations.</p>
+                <button class="text-[#15803d] bg-[#facc15] rounded-full   inter font-medium btn shadow-none">Get
+                    Involved</button>
+            </div>
+
+            <img class="size-1/5" src="./assets/hero-leaf2.png" alt="">
+        </section>
+
+        <h1 class="text-center font-bold text-[2rem] bg-[#f0fdf4] pt-5">Choose Your Trees</h1>
+
+        <section class="flex justify-between items-stretch p-5 bg-[#f0fdf4]">
+
+
+
+            <div>
+                <h2 class="font-bold text-[1.2rem] text-center mb-2">Catagories</h2>
+
+
+                <div>
+
+                    <button id="cata-btn" onclick="loadCataTree1()"
+                        class="btn catagory-btn hover:bg-[#15803d] w-50 bg-[#f0fdf4] mb-1">
+
+                        All Trees
+
+                    </button>
+
+                    <div id="cata-container" class="flex flex-col gap-1 ">
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="tree-container" class="grid grid-cols-3 gap-1">
+
+            </div>
+
+            <div class="flex flex-col mt-5 bg-white p-3 gap-3 rounded-xl">
+                <h3 class="font-bold">Your Cart</h3>
+                <div id="cart-container" class=" flex justify-between gap-10 items-center bg-[#f0fdf4] px-5 py-1">
+                    <div class="">
+                        <h4 class="font-medium">Mango Tree</h4>
+                        <p>500 ⅹ 1</p>
+                    </div>
+                    <p>ⅹ</p>
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <p class="font-medium">Total</p>
+                    <p class="font-medium">500</p>
+                </div>
+
+            </div>
+        </section>
+
+    </header>
+
+    <main>
+
+    </main>
+
+    <footer>
+
+    </footer>
+
+
+
+    <script src="./index.js"></script>
+</body>
+
+</html>
