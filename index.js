@@ -219,8 +219,8 @@ function displayPlants(plants) {
     container.innerHTML = "";
 
     plants.forEach(plant => {
+        
         const item = document.createElement("div");
-        // item.className = "flex justify-between items-center bg-white p-3 rounded shadow";
 
         item.innerHTML = `
       
@@ -252,7 +252,7 @@ function displayPlants(plants) {
 }
 
 
-let total = 0; // keep track of total
+let total = 0;
 
 const loadTrees = () => {
     fetch('https://openapi.programming-hero.com/api/plants')
@@ -283,7 +283,6 @@ const displayTree = (plants) => {
 
 
 
-// Function to add history
 function addHistory(name, price) {
     const historyList = document.getElementById("history-list");
 
@@ -298,28 +297,24 @@ function addHistory(name, price) {
                         <p>${price} <i class="fa-solid fa-xmark text-sm text-gray-700"></i> 1</p>
                     </div>
                     <p onclick="removeHistory(this, ${price})" class="cursor-pointer"><i class="fa-solid fa-xmark text-lg text-red-400"></i></p>
-
-
                 
             `;
 
     historyList.appendChild(div);
 
-    // update total
+
     total += price;
     updateTotal();
 }
 
-// Function to remove one history item
 function removeHistory(button, price) {
     button.parentElement.remove();
 
-    // update total
+
     total -= price;
     updateTotal();
 }
 
-// Function to update total display
 function updateTotal() {
     document.getElementById("total-price").textContent = total;
 }
