@@ -219,7 +219,7 @@ function displayPlants(plants) {
     container.innerHTML = "";
 
     plants.forEach(plant => {
-        
+
         const item = document.createElement("div");
 
         item.innerHTML = `
@@ -240,9 +240,6 @@ function displayPlants(plants) {
                     <p class="font-medium">Total</p>
                     <p class="font-medium">500</p>
                 </div>
-      
-      
-      
       
       
       `;
@@ -284,6 +281,7 @@ const displayTree = (plants) => {
 
 
 function addHistory(name, price) {
+    alert('Cart Added!')
     const historyList = document.getElementById("history-list");
 
     const div = document.createElement("div");
@@ -308,6 +306,7 @@ function addHistory(name, price) {
 }
 
 function removeHistory(button, price) {
+    alert('Cart Removed!')
     button.parentElement.remove();
 
 
