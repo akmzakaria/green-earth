@@ -1,3 +1,24 @@
+const manageSpinner = (status) => {
+    if (status == true) {
+        document.getElementById('spinner').classList.remove('invisible');
+        document.getElementById('spinner').classList.add('flex');
+        document.getElementById('tree-container').classList.add('invisible');
+
+
+        // document.getElementById('spinner').style.display = 'flex'
+        // document.getElementById('word-container').style.display = 'none'
+
+    } else {
+        document.getElementById('spinner').classList.add('invisible');
+        document.getElementById('tree-container').classList.remove('invisible');
+
+
+        // document.getElementById('spinner').style.display = 'none'
+        // document.getElementById('word-container').style.display = 'grid'
+    }
+}
+
+
 const removeActive = () => {
     const lessonBtns = document.querySelectorAll('.catagory-btn');
     lessonBtns.forEach(btn => btn.classList.remove('active'));
@@ -5,6 +26,7 @@ const removeActive = () => {
 
 
 const loadCataTree1 = () => {
+    manageSpinner(true);
 
     const url = `https://openapi.programming-hero.com/api/plants`
 
@@ -16,8 +38,6 @@ const loadCataTree1 = () => {
 
             const clickBtn = document.getElementById(`catagory-btn`);
             clickBtn.classList.add('active');
-
-            displayCataTree(data.plants)
 
 
             displayCataTree1(data.plants)
@@ -48,23 +68,25 @@ const displayCataTree1 = (plants) => {
                         <p class="font-bold">${plant.price}</p>
                     </div>
 
-                    <button class="btn text-white w-full bg-[#15803d] rounded-full">Add to Cart</button>
+                    <button onclick="addHistory('${plant.name}',${plant.price})" class="btn text-white w-full bg-[#15803d] rounded-full">Add to Cart</button>
 
                 </div>
         
         `
         treeContainer1.append(card);
     })
+    manageSpinner(false);
 
 }
 
 
-// --------------------------------------------------------------
+// ----------------------------------------------------------------------------
 
 
 
 
 const loadCataTree = (id) => {
+    manageSpinner(true);
     const url = `https://openapi.programming-hero.com/api/category/${id}`
 
     fetch(url)
@@ -118,13 +140,14 @@ const displayCataTree = (plants) => {
                         <p class="font-bold">${plant.price}</p>
                     </div>
 
-                    <button class="btn text-white w-full bg-[#15803d] rounded-full">Add to Cart</button>
+                    <button onclick="addHistory('${plant.name}', ${plant.price})" class="btn text-white w-full bg-[#15803d] rounded-full">Add to Cart</button>
 
                 </div>
         
         `
         treeContainer.append(card);
     })
+    manageSpinner(false);
 
 }
 
@@ -184,11 +207,119 @@ const displayTreeDetails = (plants) => {
         <h2 class="text-xl text-[#1F2937]">${plants.description}</h2>
 
     `
-    
+
 
     document.getElementById("word_modal").showModal();
 
 }
 
 
+function displayPlants(plants) {
+    const container = document.getElementById("cart-container");
+    container.innerHTML = "";
 
+    plants.forEach(plant => {
+        const item = document.createElement("div");
+        // item.className = "flex justify-between items-center bg-white p-3 rounded shadow";
+
+        item.innerHTML = `
+      
+                <div class=" flex justify-between gap-10 items-center bg-[#f0fdf4] px-5 py-1">
+
+
+                    <div class="">
+                        <h4 class="font-medium">${plant.name}</h4>
+                        <p>${plant.price} ⅹ 1</p>
+                    </div>
+                    <p id="clear-history" class="cursor-pointer">ⅹ</p>
+
+
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <p class="font-medium">Total</p>
+                    <p class="font-medium">500</p>
+                </div>
+      
+      
+      
+      
+      
+      `;
+
+        container.appendChild(item);
+    });
+}
+
+
+let total = 0; // keep track of total
+
+const loadTrees = () => {
+    fetch('https://openapi.programming-hero.com/api/plants')
+        .then(res => res.json())
+        .then(data => displayTree(data.plants))
+}
+
+loadTrees();
+
+const displayTree = (plants) => {
+    const cardContainer = document.getElementById('card-container');
+    cardContainer.innerHTML = '';
+
+    plants.forEach(plant => {
+        const card = document.createElement('div');
+
+        card.innerHTML = `
+                    <h1>${plant.name}</h1>
+                    <p>${plant.price}</p>
+                    <button onclick="addHistory('${plant.name}', ${plant.price})">Add To Cart</button>
+                `;
+
+        cardContainer.append(card);
+    })
+
+    manageSpinner(false);
+}
+
+
+
+// Function to add history
+function addHistory(name, price) {
+    const historyList = document.getElementById("history-list");
+
+    const div = document.createElement("div");
+    div.className = "flex justify-between gap-10 items-center bg-[#f0fdf4] px-5 py-1 mb-3";
+
+    div.innerHTML = `
+                
+
+                    <div>
+                        <h4 class="font-medium">${name}</h4>
+                        <p>${price} <i class="fa-solid fa-xmark text-sm text-gray-700"></i> 1</p>
+                    </div>
+                    <p onclick="removeHistory(this, ${price})" class="cursor-pointer"><i class="fa-solid fa-xmark text-lg text-red-400"></i></p>
+
+
+                
+            `;
+
+    historyList.appendChild(div);
+
+    // update total
+    total += price;
+    updateTotal();
+}
+
+// Function to remove one history item
+function removeHistory(button, price) {
+    button.parentElement.remove();
+
+    // update total
+    total -= price;
+    updateTotal();
+}
+
+// Function to update total display
+function updateTotal() {
+    document.getElementById("total-price").textContent = total;
+}
