@@ -37,7 +37,7 @@ const displayCataTree1 = (plants) => {
 
                     <img class="h-50 w-full mx-auto rounded-xl" src="${plant.image}" alt="">
 
-                    <h3 class="font-bold">${plant.name}</h3>
+                    <h3 onclick ="loadTreeDetails(${plant.id})" class="font-bold cursor-pointer">${plant.name}</h3>
 
                     <p class="text-[#525b65]">${plant.description}</p>
 
@@ -107,7 +107,7 @@ const displayCataTree = (plants) => {
 
                     <img class="h-50 w-full mx-auto rounded-xl" src="${plant.image}" alt="">
 
-                    <h3 class="font-bold">${plant.name}</h3>
+                    <h3 onclick ="loadTreeDetails(${plant.id})" class="font-bold cursor-pointer">${plant.name}</h3>
 
                     <p class="text-[#525b65]">${plant.description}</p>
 
@@ -164,6 +164,31 @@ const displayCatagories = (catagories) => {
 
 
 loadCatagories();
+
+
+const loadTreeDetails = async (id) => {
+    const url = `https://openapi.programming-hero.com/api/plant/${id}`;
+    console.log(url)
+    const res = await fetch(url)
+    const details = await res.json()
+    displayTreeDetails(details.plants)
+
+};
+
+const displayTreeDetails = (plants) => {
+    console.log(plants)
+
+    const detailsBox = document.getElementById('details-container');
+    detailsBox.innerHTML = `
+
+        <h2 class="text-xl text-[#1F2937]">${plants.description}</h2>
+
+    `
+    
+
+    document.getElementById("word_modal").showModal();
+
+}
 
 
 
