@@ -8,9 +8,9 @@ function Navbar({ cartCount = 0 }) {
   }
 
   return (
-    <header className="inter bg-[#15803d]">
+    <header className="inter bg-[#15803d] sticky top-0 z-50 shadow-lg">
       <div className="inter max-w-7xl mx-auto px-5">
-        <div className="inter navbar bg-[#15803d] shadow-sm">
+        <div className="inter navbar bg-[#15803d]">
           <div className="inter navbar-start">
             <div className="inter dropdown">
               <div tabIndex={0} role="button" className="inter btn btn-ghost md:hidden text-white">
