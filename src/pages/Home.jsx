@@ -119,27 +119,27 @@ function Home({ onAddToCart }) {
       <section className="inter bg-[#f0fdf4] py-5">
         <div className="inter max-w-7xl mx-auto px-5">
           {/* Search and Filter Bar */}
-          <div className="inter mb-6 flex flex-col md:flex-row gap-4 items-center">
+          <div className="inter mb-6 flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
             {/* Search Bar */}
             <div className="inter relative flex-1 w-full">
               <input
                 type="text"
-                placeholder="Search trees by name, description, or category..."
+                placeholder="Search trees..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="inter w-full px-6 py-4 pr-12 rounded-full border-2 border-[#dcfce7] focus:border-[#15803d] focus:outline-none text-gray-800 bg-white shadow-md focus:shadow-lg transition-all"
+                className="inter w-full px-4 sm:px-6 py-3 sm:py-4 pr-10 sm:pr-12 rounded-full border-2 border-[#dcfce7] focus:border-[#15803d] focus:outline-none text-gray-800 bg-white shadow-md focus:shadow-lg transition-all text-sm sm:text-base"
               />
-              <i className="fa-solid fa-search absolute right-6 top-1/2 transform -translate-y-1/2 text-[#15803d] text-xl"></i>
+              <i className="fa-solid fa-search absolute right-4 sm:right-6 top-1/2 transform -translate-y-1/2 text-[#15803d] text-lg sm:text-xl"></i>
             </div>
 
             {/* Filter Dropdown */}
-            <div className="inter dropdown dropdown-end">
+            <div className="inter dropdown dropdown-end w-full sm:w-auto">
               <button
                 tabIndex={0}
-                className="inter btn bg-white border-2 border-[#dcfce7] hover:border-[#15803d] hover:bg-[#f0fdf4] rounded-full px-6 normal-case font-medium text-gray-800 shadow-md hover:shadow-lg transition-all"
+                className="inter btn hidden md:block bg-white border-2 border-[#dcfce7] hover:border-[#15803d] hover:bg-[#f0fdf4] rounded-full px-4 sm:px-6 normal-case font-medium text-gray-800 shadow-md hover:shadow-lg transition-all md:w-full sm:w-auto text-sm sm:text-base h-12 sm:h-auto min-h-[3rem]"
               >
                 <i className="fa-solid fa-filter text-[#15803d]"></i>
-                Filters
+                <span>Filters</span>
                 {selectedCategories.length > 0 && (
                   <span className="inter bg-[#15803d] text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                     {selectedCategories.length}
@@ -148,10 +148,12 @@ function Home({ onAddToCart }) {
               </button>
               <div
                 tabIndex={0}
-                className="inter dropdown-content z-[1] menu p-4 shadow-xl bg-white rounded-xl w-80 mt-2"
+                className="inter dropdown-content z-[1] menu p-3 sm:p-4 shadow-xl bg-white rounded-xl w-[calc(100vw-2.5rem)] sm:w-80 max-w-md mt-2 right-0"
               >
                 <div className="inter flex justify-between items-center mb-3">
-                  <h3 className="inter font-bold text-gray-800">Filter by Category</h3>
+                  <h3 className="inter font-bold text-gray-800 text-sm sm:text-base">
+                    Filter by Category
+                  </h3>
                   {selectedCategories.length > 0 && (
                     <button
                       onClick={clearFilters}
@@ -162,13 +164,13 @@ function Home({ onAddToCart }) {
                   )}
                 </div>
 
-                <div className="inter flex flex-col gap-2 max-h-96 overflow-y-auto">
+                <div className="inter flex flex-col gap-1.5 sm:gap-2 max-h-[60vh] sm:max-h-96 overflow-y-auto">
                   {categories.map((category) => (
                     <label
                       key={category.id}
-                      className="inter flex items-center gap-3 cursor-pointer hover:bg-[#f0fdf4] p-3 rounded-lg transition-colors"
+                      className="inter flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-[#f0fdf4] p-2.5 sm:p-3 rounded-lg transition-colors active:bg-[#dcfce7]"
                     >
-                      <div className="inter relative">
+                      <div className="inter relative flex-shrink-0">
                         <input
                           type="checkbox"
                           checked={selectedCategories.includes(category.category_name)}
@@ -192,18 +194,20 @@ function Home({ onAddToCart }) {
           {/* Active Filters */}
           {selectedCategories.length > 0 && (
             <div className="inter mb-4 flex flex-wrap gap-2 items-center">
-              <span className="inter text-sm text-gray-600 font-medium">Active Filters:</span>
+              <span className="inter text-xs sm:text-sm text-gray-600 font-medium">
+                Active Filters:
+              </span>
               {selectedCategories.map((cat) => (
                 <span
                   key={cat}
-                  className="inter bg-[#dcfce7] text-[#15803d] px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 shadow-sm"
+                  className="inter bg-[#dcfce7] text-[#15803d] px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium flex items-center gap-1.5 sm:gap-2 shadow-sm"
                 >
-                  {cat}
+                  <span className="truncate max-w-[150px] sm:max-w-none">{cat}</span>
                   <button
                     onClick={() => toggleCategory(cat)}
-                    className="inter hover:text-red-600 transition-colors"
+                    className="inter hover:text-red-600 transition-colors flex-shrink-0"
                   >
-                    <i className="fa-solid fa-xmark"></i>
+                    <i className="fa-solid fa-xmark text-sm"></i>
                   </button>
                 </span>
               ))}
@@ -212,7 +216,7 @@ function Home({ onAddToCart }) {
 
           {/* Results Count */}
           <div className="inter mb-4 flex justify-between items-center">
-            <p className="inter text-gray-600">
+            <p className="inter text-gray-600 text-sm sm:text-base">
               {loading ? (
                 'Loading...'
               ) : (
@@ -224,6 +228,62 @@ function Home({ onAddToCart }) {
                 </>
               )}
             </p>
+            <div className="inter dropdown dropdown-end sm:w-auto">
+              <button
+                tabIndex={0}
+                className="inter btn md:hidden bg-white border-2 border-[#dcfce7] hover:border-[#15803d] hover:bg-[#f0fdf4] rounded-full px-4 sm:px-6 normal-case font-medium text-gray-800 shadow-md hover:shadow-lg transition-all md:w-full sm:w-auto text-sm sm:text-base h-12 sm:h-auto min-h-[3rem]"
+              >
+                <i className="fa-solid fa-filter text-[#15803d]"></i>
+                <span>Filters</span>
+                {selectedCategories.length > 0 && (
+                  <span className="inter bg-[#15803d] text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                    {selectedCategories.length}
+                  </span>
+                )}
+              </button>
+              <div
+                tabIndex={0}
+                className="inter dropdown-content z-[1] menu p-3 sm:p-4 shadow-xl bg-white rounded-xl w-[calc(100vw-2.5rem)] sm:w-80 max-w-md mt-2 right-0"
+              >
+                <div className="inter flex justify-between items-center mb-3">
+                  <h3 className="inter font-bold text-gray-800 text-sm sm:text-base">
+                    Filter by Category
+                  </h3>
+                  {selectedCategories.length > 0 && (
+                    <button
+                      onClick={clearFilters}
+                      className="inter text-xs text-[#15803d] hover:underline font-medium"
+                    >
+                      Clear All
+                    </button>
+                  )}
+                </div>
+
+                <div className="inter flex flex-col gap-1.5 sm:gap-2 max-h-[60vh] sm:max-h-96 overflow-y-auto">
+                  {categories.map((category) => (
+                    <label
+                      key={category.id}
+                      className="inter flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-[#f0fdf4] p-2.5 sm:p-3 rounded-lg transition-colors active:bg-[#dcfce7]"
+                    >
+                      <div className="inter relative flex-shrink-0">
+                        <input
+                          type="checkbox"
+                          checked={selectedCategories.includes(category.category_name)}
+                          onChange={() => toggleCategory(category.category_name)}
+                          className="inter w-5 h-5 rounded border-2 border-gray-300 checked:bg-[#15803d] checked:border-[#15803d] cursor-pointer appearance-none transition-all"
+                        />
+                        {selectedCategories.includes(category.category_name) && (
+                          <i className="fa-solid fa-check absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-xs pointer-events-none"></i>
+                        )}
+                      </div>
+                      <span className="inter text-sm text-gray-700 flex-1">
+                        {category.category_name}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Tree Cards Grid */}

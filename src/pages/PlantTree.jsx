@@ -126,7 +126,7 @@ function PlantTree() {
                 name="trees"
                 value={formData.trees}
                 onChange={handleChange}
-                className="select w-full bg-white text-gray-800 border-none focus:ring-2 focus:ring-[#facc15]"
+                className="select w-full px-2 bg-white text-gray-800 border-none focus:ring-2 focus:ring-[#facc15]"
                 required
               >
                 <option value="" disabled className="text-gray-500">
