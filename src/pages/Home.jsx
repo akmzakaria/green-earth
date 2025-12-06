@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import TreeCard from '../components/TreeCard'
 
 function Home({ onAddToCart }) {
@@ -11,7 +11,6 @@ function Home({ onAddToCart }) {
   const [loading, setLoading] = useState(true)
   const [loadingMore, setLoadingMore] = useState(false)
   const [hasMore, setHasMore] = useState(true)
-  const observer = useRef()
   const ITEMS_PER_PAGE = 10
 
   // Filter plants based on categories and search
@@ -39,12 +38,12 @@ function Home({ onAddToCart }) {
     setHasMore(filtered.length > ITEMS_PER_PAGE)
   }, [allPlants, selectedCategories, searchQuery])
 
-  const loadMorePlants = useCallback(() => {
+  const loadMorePlants = () => {
     if (loadingMore || !hasMore) return
     setLoadingMore(true)
 
-    // Use requestAnimationFrame for smoother updates
-    requestAnimationFrame(() => {
+    // Simulate a small delay for better UX
+    setTimeout(() => {
       const startIndex = displayedPlants.length
       const endIndex = startIndex + ITEMS_PER_PAGE
       const newPlants = filteredPlants.slice(startIndex, endIndex)
@@ -54,28 +53,8 @@ function Home({ onAddToCart }) {
       const newLength = startIndex + newPlants.length
       setHasMore(newLength < filteredPlants.length)
       setLoadingMore(false)
-    })
-  }, [loadingMore, hasMore, filteredPlants, displayedPlants.length])
-
-  const lastPlantRef = useCallback(
-    (node) => {
-      if (loadingMore) return
-      if (observer.current) observer.current.disconnect()
-      observer.current = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting && hasMore) {
-            loadMorePlants()
-          }
-        },
-        {
-          rootMargin: '100px', // Load before reaching the bottom
-          threshold: 0.1,
-        }
-      )
-      if (node) observer.current.observe(node)
-    },
-    [loadingMore, hasMore, loadMorePlants]
-  )
+    }, 300)
+  }
 
   useEffect(() => {
     loadCategories()
@@ -279,27 +258,37 @@ function Home({ onAddToCart }) {
             ) : (
               <>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                  {displayedPlants.map((plant, index) => {
-                    const isLastElement = displayedPlants.length === index + 1
-                    return (
-                      <div
-                        ref={isLastElement ? lastPlantRef : null}
-                        key={plant.id}
-                        className="card-fade-in"
-                      >
-                        <TreeCard plant={plant} onAddToCart={onAddToCart} />
-                      </div>
-                    )
-                  })}
-                </div>
-                {loadingMore && (
-                  <div className="flex justify-center items-center py-8">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 border-3 border-[#dcfce7] border-t-[#15803d] rounded-full animate-spin"></div>
-                      <p className="text-[#15803d] font-medium">Loading more trees...</p>
+                  {displayedPlants.map((plant) => (
+                    <div key={plant.id} className="card-fade-in">
+                      <TreeCard plant={plant} onAddToCart={onAddToCart} />
                     </div>
+                  ))}
+                </div>
+
+                {/* View More Button */}
+                {hasMore && (
+                  <div className="flex justify-center items-center py-8">
+                    <button
+                      onClick={loadMorePlants}
+                      disabled={loadingMore}
+                      className="btn text-white bg-gradient-to-r from-[#15803d] to-[#166534] border-none rounded-full hover:from-[#166534] hover:to-[#15803d] hover:scale-105 transition-all shadow-lg hover:shadow-xl px-8"
+                    >
+                      {loadingMore ? (
+                        <>
+                          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          <span>Loading...</span>
+                        </>
+                      ) : (
+                        <>
+                          <i className="fa-solid fa-chevron-down"></i>
+                          <span>View More Trees</span>
+                        </>
+                      )}
+                    </button>
                   </div>
                 )}
+
+                {/* All Trees Loaded Message */}
                 {!hasMore && displayedPlants.length > 0 && (
                   <div className="flex justify-center items-center py-8">
                     <p className="text-gray-600 font-medium">🌳 You've seen all the trees! 🌳</p>

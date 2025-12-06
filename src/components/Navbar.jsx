@@ -13,7 +13,11 @@ function Navbar({ cartCount = 0 }) {
         <div className="inter navbar bg-[#15803d]">
           <div className="inter navbar-start">
             <div className="inter dropdown">
-              <div tabIndex={0} role="button" className="inter btn btn-ghost md:hidden text-white">
+              <div
+                tabIndex={0}
+                role="button"
+                className="inter btn btn-ghost md:hidden text-white -ml-6"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="inter h-5 w-5"
@@ -137,9 +141,12 @@ function Navbar({ cartCount = 0 }) {
               </button>
             </Link>
             <Link to="/plant-tree">
-              <button className="inter px-5 text-white bg-gradient-to-r from-[#facc15] to-[#fbbf24] border-none rounded-full font-bold btn hover:from-[#fbbf24] hover:to-[#facc15] hover:scale-110 transition-all shadow-lg hover:shadow-xl">
+              <button className="inter px-3 md:px-5 text-white bg-gradient-to-r from-[#facc15] to-[#fbbf24] border-none rounded-full font-bold btn hover:from-[#fbbf24] hover:to-[#facc15] hover:scale-110 transition-all shadow-lg hover:shadow-xl">
                 <i className="fa-solid fa-tree text-[#15803d]"></i>
-                <span className="text-[#15803d]">Plant a Tree</span>
+                <div className="flex gap-1 text-[#15803d]">
+                  <span className="">Plant</span>
+                  <span className="hidden md:block">a Tree</span>
+                </div>
               </button>
             </Link>
           </div>

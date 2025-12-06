@@ -30,8 +30,8 @@ function CartPage({ cart, onRemove, onUpdateQuantity }) {
       <div className="max-w-7xl mx-auto px-5 py-12">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">Your Cart</h1>
-          <p className="text-gray-600">
+          <h1 className="text-2xl md:text-4xl font-bold text-gray-800 mb-2">Your Cart</h1>
+          <p className="text-sm md:text-base text-gray-600">
             {cart.length === 0
               ? 'Your cart is empty. Start planting trees!'
               : `You have ${cart.length} item${cart.length > 1 ? 's' : ''} in your cart`}
@@ -60,11 +60,11 @@ function CartPage({ cart, onRemove, onUpdateQuantity }) {
               {cart.map((item) => (
                 <div
                   key={item.id}
-                  className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all"
+                  className="bg-white p-4 md:p-6 rounded-xl shadow-md hover:shadow-lg transition-all"
                 >
-                  <div className="flex gap-6">
+                  <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
                     {/* Image */}
-                    <div className="w-32 h-32 flex-shrink-0 rounded-lg overflow-hidden bg-gray-200">
+                    <div className="w-full sm:w-24 md:w-32 h-32 flex-shrink-0 rounded-lg overflow-hidden bg-gray-200">
                       <img
                         src={item.image}
                         alt={item.name}
@@ -76,49 +76,51 @@ function CartPage({ cart, onRemove, onUpdateQuantity }) {
                     <div className="flex-1 flex flex-col justify-between">
                       <div>
                         <div className="flex justify-between items-start mb-2">
-                          <div>
-                            <h3 className="text-xl font-bold text-[#15803d] mb-1">{item.name}</h3>
+                          <div className="flex-1">
+                            <h3 className="text-lg md:text-xl font-bold text-[#15803d] mb-1">
+                              {item.name}
+                            </h3>
                             <span className="bg-[#dcfce7] text-[#15803d] px-3 py-1 rounded-full text-xs font-medium">
                               {item.category}
                             </span>
                           </div>
                           <button
                             onClick={() => handleRemove(item.id, item.name)}
-                            className="text-red-400 hover:text-red-600 transition-colors p-2"
+                            className="text-red-400 hover:text-red-600 transition-colors p-2 ml-2"
                           >
-                            <i className="fa-solid fa-trash text-lg"></i>
+                            <i className="fa-solid fa-trash text-base md:text-lg"></i>
                           </button>
                         </div>
-                        <p className="text-gray-600 text-sm line-clamp-2 mt-2">
+                        <p className="text-gray-600 text-sm line-clamp-2 mt-2 hidden sm:block">
                           {item.description}
                         </p>
                       </div>
 
                       {/* Quantity and Price */}
-                      <div className="flex justify-between items-center mt-4">
-                        <div className="flex items-center gap-3">
-                          <span className="text-sm text-gray-600">Quantity:</span>
+                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mt-4">
+                        <div className="flex items-center gap-2 sm:gap-3">
+                          <span className="text-xs sm:text-sm text-gray-600">Qty:</span>
                           <div className="flex items-center gap-2">
                             <button
                               onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
-                              className="w-8 h-8 flex items-center justify-center bg-[#f0fdf4] rounded text-[#15803d] hover:bg-[#dcfce7] transition-colors"
+                              className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center bg-[#f0fdf4] rounded text-[#15803d] hover:bg-[#dcfce7] transition-colors"
                             >
-                              <i className="fa-solid fa-minus text-sm"></i>
+                              <i className="fa-solid fa-minus text-xs"></i>
                             </button>
-                            <span className="text-lg font-semibold text-gray-800 w-12 text-center">
+                            <span className="text-base sm:text-lg font-semibold text-gray-800 w-8 sm:w-12 text-center">
                               {item.quantity}
                             </span>
                             <button
                               onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
-                              className="w-8 h-8 flex items-center justify-center bg-[#f0fdf4] rounded text-[#15803d] hover:bg-[#dcfce7] transition-colors"
+                              className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center bg-[#f0fdf4] rounded text-[#15803d] hover:bg-[#dcfce7] transition-colors"
                             >
-                              <i className="fa-solid fa-plus text-sm"></i>
+                              <i className="fa-solid fa-plus text-xs"></i>
                             </button>
                           </div>
                         </div>
-                        <div className="text-right">
-                          <p className="text-sm text-gray-600">${item.price} each</p>
-                          <p className="text-2xl font-bold text-[#15803d]">
+                        <div className="text-left sm:text-right">
+                          <p className="text-xs sm:text-sm text-gray-600">${item.price} each</p>
+                          <p className="text-xl sm:text-2xl font-bold text-[#15803d]">
                             ${(item.price * item.quantity).toFixed(2)}
                           </p>
                         </div>
@@ -131,48 +133,52 @@ function CartPage({ cart, onRemove, onUpdateQuantity }) {
 
             {/* Order Summary */}
             <div className="lg:col-span-1">
-              <div className="bg-white p-6 rounded-xl shadow-md sticky top-5">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">Order Summary</h2>
+              <div className="bg-white p-4 md:p-6 rounded-xl shadow-md lg:sticky lg:top-20">
+                <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 md:mb-6">
+                  Order Summary
+                </h2>
 
-                <div className="space-y-3 mb-6">
-                  <div className="flex justify-between text-gray-600">
+                <div className="space-y-2 md:space-y-3 mb-4 md:mb-6">
+                  <div className="flex justify-between text-sm md:text-base text-gray-600">
                     <span>Subtotal</span>
                     <span>${total.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between text-gray-600">
+                  <div className="flex justify-between text-sm md:text-base text-gray-600">
                     <span>Shipping</span>
                     <span className="text-[#15803d] font-medium">Free</span>
                   </div>
                   <div className="border-t border-gray-200 pt-3 flex justify-between items-center">
-                    <span className="text-xl font-bold text-gray-800">Total</span>
-                    <span className="text-2xl font-bold text-[#15803d]">${total.toFixed(2)}</span>
+                    <span className="text-lg md:text-xl font-bold text-gray-800">Total</span>
+                    <span className="text-xl md:text-2xl font-bold text-[#15803d]">
+                      ${total.toFixed(2)}
+                    </span>
                   </div>
                 </div>
 
-                <button className="w-full btn text-white bg-gradient-to-r from-[#15803d] to-[#166534] border-none rounded-full hover:from-[#166534] hover:to-[#15803d] hover:scale-105 transition-all shadow-lg hover:shadow-xl mb-3">
+                <button className="w-full btn text-sm md:text-base text-white bg-gradient-to-r from-[#15803d] to-[#166534] border-none rounded-full hover:from-[#166534] hover:to-[#15803d] hover:scale-105 transition-all shadow-lg hover:shadow-xl mb-3">
                   <i className="fa-solid fa-credit-card"></i>
                   Proceed to Checkout
                 </button>
 
                 <Link
                   to="/"
-                  className="w-full btn bg-white border-2 border-[#15803d] text-[#15803d] rounded-full hover:bg-[#dcfce7] hover:scale-105 transition-all"
+                  className="w-full btn text-sm md:text-base bg-white border-2 border-[#15803d] text-[#15803d] rounded-full hover:bg-[#dcfce7] hover:scale-105 transition-all"
                 >
                   <i className="fa-solid fa-arrow-left"></i>
                   Continue Shopping
                 </Link>
 
                 {/* Trust Indicators */}
-                <div className="mt-6 pt-6 border-t border-gray-200 space-y-3">
-                  <div className="flex items-center gap-3 text-sm text-gray-600">
+                <div className="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-gray-200 space-y-2 md:space-y-3">
+                  <div className="flex items-center gap-2 md:gap-3 text-xs md:text-sm text-gray-600">
                     <i className="fa-solid fa-shield-halved text-[#15803d]"></i>
                     <span>Secure checkout</span>
                   </div>
-                  <div className="flex items-center gap-3 text-sm text-gray-600">
+                  <div className="flex items-center gap-2 md:gap-3 text-xs md:text-sm text-gray-600">
                     <i className="fa-solid fa-truck text-[#15803d]"></i>
                     <span>Free shipping on all orders</span>
                   </div>
-                  <div className="flex items-center gap-3 text-sm text-gray-600">
+                  <div className="flex items-center gap-2 md:gap-3 text-xs md:text-sm text-gray-600">
                     <i className="fa-solid fa-seedling text-[#15803d]"></i>
                     <span>GPS tracked planting</span>
                   </div>
