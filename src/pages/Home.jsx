@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import TreeCard from '../components/TreeCard'
 
 function Home({ onAddToCart }) {
@@ -103,10 +104,12 @@ function Home({ onAddToCart }) {
             Join our mission to plant 1 million trees and make the Earth greener for future
             generations.
           </p>
-          <button className="inter px-5 text-white bg-gradient-to-r from-[#15803d] to-[#166534] border-none rounded-full font-bold btn hover:from-[#166534] hover:to-[#15803d] hover:scale-110 transition-all shadow-xl hover:shadow-2xl">
-            <i className="fa-solid fa-seedling"></i>
-            Get Involved
-          </button>
+          <Link to="/plant-tree">
+            <button className="inter px-5 text-white bg-gradient-to-r from-[#15803d] to-[#166534] border-none rounded-full font-bold btn hover:from-[#166534] hover:to-[#15803d] hover:scale-110 transition-all shadow-xl hover:shadow-2xl">
+              <i className="fa-solid fa-seedling"></i>
+              Get Involved
+            </button>
+          </Link>
         </div>
         <img className="inter size-1/5" src="/assets/hero-leaf2.png" alt="" />
       </section>
