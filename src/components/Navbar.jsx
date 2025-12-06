@@ -70,7 +70,7 @@ function Navbar({ cartCount = 0 }) {
             </div>
             <Link
               to="/"
-              className="inter flex items-center gap-2 text-lg font-bold poppins text-white hover:scale-105 transition-transform"
+              className="flex items-center gap-2 text-lg font-bold font-poppins text-white hover:scale-105 transition-transform"
             >
               <i className="fa-solid fa-seedling text-[#facc15]"></i>
               Green Earth
